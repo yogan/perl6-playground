@@ -42,3 +42,30 @@ sub say_next_num($num is copy) {
 my $num_of_truth = 42;
 say_next_num($num_of_truth);
 say "the truth is: $num_of_truth";
+
+
+# arrays, hashes and subs as arguments
+
+sub shout_words(@words) {
+    for @words -> $word {
+        say uc($word);
+    }
+}
+my @words = <hey ho let's go>;
+shout_words(@words);
+
+sub say_names_with_age(%people) {
+    for %people {
+        say .key ~ " (" ~ .value ~ ")";
+    }
+}
+my %white_family = Walter => 52, Skyler => 41, "Walter Jr." => 17 , Holly => 2;
+say_names_with_age(%white_family);
+
+sub multi_exec(&proc, $times) {
+    for 1..$times {
+        proc();
+    }
+}
+multi_exec( { say "Whooo!" }, 3 );
+
