@@ -33,3 +33,12 @@ my $input_word = "stressed";
 say "input_word (before reverse()): $input_word";
 reverse($input_word);
 say "input_word (after reverse()): $input_word";
+
+# pass-by-value with "is copy"
+sub say_next_num($num is copy) {
+    say ++$num;
+}
+
+my $num_of_truth = 42;
+say_next_num($num_of_truth);
+say "the truth is: $num_of_truth";
