@@ -69,3 +69,47 @@ sub multi_exec(&proc, $times) {
 }
 multi_exec( { say "Whooo!" }, 3 );
 
+
+# interpolating arrays and hashes
+
+sub sum_of_three($x, $y, $z) {
+    say "$x + $y + $z = {$x + $y + $z}";
+}
+
+my @nums = (1, 2, 3);
+sum_of_three(@nums[0], @nums[1], @nums[2]); # is equivalent to:
+sum_of_three(|@nums);   # @nums must have exactly three elements
+
+sub hashyhashy(:$foo, :$bar) {
+    say "foo: $foo / bar: $bar";
+}
+
+my %stuff = bar => '123', foo => '---';
+hashyhashy(|%stuff);
+
+
+# restrict arguments with type and range
+# http://perl6advent.wordpress.com/2009/12/09/day-9-having-beautiful-arguments-and-parameters
+my %ages;
+sub set_age(Str $name, Int $age where 0..90) {
+    %ages{$name} = $age;
+}
+set_age("John Doe", 42);
+#set_age(1234, 42);         # NOPE. Wrong arg types (Int, Int)
+#set_age("John Doe", 99);   # NOPE. Constraint type check failed
+say %ages;
+
+
+# default parameters
+sub draw_ascii_rectangle(Int $width  where 1..10 = 2,
+                         Int $height where 1..10 = $width) {
+    for ^$height {
+        for ^$width {
+            print "#";
+        }
+        print "\n";
+    }
+}
+draw_ascii_rectangle(10, 1);
+draw_ascii_rectangle();
+draw_ascii_rectangle(4);
