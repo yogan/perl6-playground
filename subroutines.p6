@@ -113,3 +113,29 @@ sub draw_ascii_rectangle(Int $width  where 1..10 = 2,
 draw_ascii_rectangle(10, 1);
 draw_ascii_rectangle();
 draw_ascii_rectangle(4);
+
+
+# named parameters
+
+sub draw_line($x1, $y1, $x2, $y2) {
+    say "($x1/$y1) -----> ($x2/$y2)";
+}
+my ($x1, $y1) = (0, 0);
+my ($x2, $y2) = (4, 5);
+draw_line($x1, $x2, $y1, $y2);      #damn, mixed up the args...
+
+# use : prefix to declare param as named
+# also put ! postfix to make required, default is optional (?) for named params
+sub draw_line_named(:$x1!, :$y1!, :$x2!, :$y2!) {
+    say "($x1/$y1) =====> ($x2/$y2)";
+}
+#draw_line_named();  # not possible because of !
+draw_line_named(:$x1, :$x2, :$y1, :$y2);  # haha, don't care anymore!
+draw_line_named(:$x2, :$x1, :$y2, :$y1);  # just the same
+
+# drawback: those won't work anymore:
+#draw_line_named(1,2,3,4);  # given as positional params
+my ($a1, $b1) = (0, 0);
+my ($a2, $b2) = (4, 5);
+#draw_line_named(:$a1, :$a2, :$b1, :$b2);  # names don't match
+draw_line_named(:x1($a1), :x2($a2), :y1($b1), :y2($b2));  # bind the names!
