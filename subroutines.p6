@@ -138,4 +138,24 @@ draw_line_named(:$x2, :$x1, :$y2, :$y1);  # just the same
 my ($a1, $b1) = (0, 0);
 my ($a2, $b2) = (4, 5);
 #draw_line_named(:$a1, :$a2, :$b1, :$b2);  # names don't match
-draw_line_named(:x1($a1), :x2($a2), :y1($b1), :y2($b2));  # bind the names!
+draw_line_named(:x1($a1), :x2($a2), :y1($b1), :y2($b2)); # bind the names!
+draw_line_named(:x1(1),   :x2(2),   :y1(3),   :y2(4));   # we can use consts now
+
+
+# varargs with slurpy arrays (* prefix)
+sub sum(*@nums) {
+    [+] @nums;
+}
+say sum 42, 23, 1337;
+
+# default (no "()" given!) is *@_, so:
+sub sum2 {
+    [+] @_;
+}
+say sum2 42, 23, 1337;
+
+# for an variable amount of named params, use slurpy hashes:
+sub detect_nonfoos(:$foo!, *%nonfoos) {
+    say "Besides 'foo', you passed in ", %nonfoos.keys.join(", ");
+}
+detect_nonfoos(:foo(1), :bar(2), :baz(3), :qux);
