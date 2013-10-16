@@ -83,3 +83,15 @@ say;
 
 my @array-with-two-empty-arrays4 = Array.new([], []);
 print-infos-and-traverse-array(@array-with-two-empty-arrays4);
+
+
+
+my       @cities = <Nürnberg Hamburg Berlin>;
+say      @cities;
+say    $(@cities);  # scalar^Witem context
+say item(@cities);  # item context
+say    + @cities;   # numerical context
+say    ? @cities;   # boolean context
+say    ~ @cities;   # string context
+
+say @cities[*-1]    # closure mit * (= Whatever) als param
