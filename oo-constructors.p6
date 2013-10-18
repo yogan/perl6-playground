@@ -3,6 +3,8 @@ use v6;
 
 # Examples taken from http://doc.perl6.org/language/objects
 
+
+# note that constructors with positional args are considered bad practice
 class PointPositionalArgs {
     has $.x;
     has $.y;
