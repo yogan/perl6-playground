@@ -22,11 +22,14 @@ class PointNamedArgs {
     has $.x;
     has $.y;
     # method new is inherited from Mu here
+    method dump { say "$.x $.y" }
 }
 
 say PointNamedArgs.new(:y(2), :x(1));
 # different syntax for same thing:
 say PointNamedArgs.new(y => 2, x => 1);
+PointNamedArgs.new(y => 2, x => 1).dump;
+
 
 
 class PointPositionalAndNamedArgs {
